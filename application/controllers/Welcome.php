@@ -2,6 +2,7 @@
 class Welcome extends CI_Controller{
 	function __construct(){
 		parent::__construct();
+		$this->load->model('m_pengguna');
 		if($this->session->userdata('masuk') !=TRUE){
             $url=base_url();
             redirect($url);
@@ -9,11 +10,8 @@ class Welcome extends CI_Controller{
 	}
 	
 	function index(){
-		$x['jurnal'] = $this->db->get('tbl_jual');
-		$this->load->view('admin/v_index',$x);
+		$data['pengguna'] = $this->m_pengguna->pengguna();
+		$this->load->view('dashboard',$data);
 	}
-	function hapus($id){
-		$this->db->delete('tbl_jual', array('jual_nofak' => $id));
-		redirect('welcome');
-	}
+	
 }

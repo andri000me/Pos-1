@@ -6,7 +6,7 @@ class Administrator extends CI_Controller{
     }
     function index(){
         $x['judul']="Silahkan Masuk..!";
-        $this->load->view('admin/v_login',$x);
+        $this->load->view('login',$x);
     }
     function cekuser(){
         $username=strip_tags(stripslashes($this->input->post('username',TRUE)));
@@ -34,16 +34,7 @@ class Administrator extends CI_Controller{
              $this->session->set_userdata('idadmin',$idadmin);
              $this->session->set_userdata('nama',$user_nama);
              $this->session->set_userdata('user',$user);
-        if($xcadmin['user_level']=='3'){
-             $this->session->set_userdata('akses','3');
-             $idadmin=$xcadmin['user_id'];
-             $user_nama=$xcadmin['user_nama'];
-              $user=$xcadmin['user_username'];
-             $this->session->set_userdata('idadmin',$idadmin);
-             $this->session->set_userdata('nama',$user_nama);
-             $this->session->set_userdata('user',$user);
-
-         } //Front Office
+         //Front Office
            
          
          
@@ -60,12 +51,13 @@ class Administrator extends CI_Controller{
         }
         function gagallogin(){
             $url=base_url('administrator');
-            echo $this->session->set_flashdata('msg','Username Atau Password Salah');
+            echo $this->session->set_flashdata('msg','<label class="label label-danger">Username dan pasword salah !!</label>');
             redirect($url);
         }
         function logout(){
-            $this->session->sess_destroy();
             $url=base_url('administrator');
+            $this->session->sess_destroy();
             redirect($url);
         }
+       
 }
